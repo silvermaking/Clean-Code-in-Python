@@ -6,6 +6,7 @@
 
 class Point:  # pylint: disable=R0903
     """Example to be used as return type of locate"""
+
     def __init__(self, lat, long):
         self.lat = lat
         self.long = long
@@ -18,5 +19,10 @@ def locate(latitude: float, longitude: float) -> Point:
 
 class NewPoint:  # pylint: disable=R0903
     """Example to display its __annotations__ attribute."""
+
     lat: float
     long: float
+
+
+print(locate.__annotations__)
+print(NewPoint.__annotations__)

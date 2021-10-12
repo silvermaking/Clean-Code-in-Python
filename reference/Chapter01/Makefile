@@ -7,7 +7,7 @@ test:
 lint:
 	pylint src/
 
-checklist: lint typehint test
+checklist: lint typehint testna
 
 black:
 	black -l 79 *.py

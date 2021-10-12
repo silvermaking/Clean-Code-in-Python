@@ -23,3 +23,17 @@ python
 
 C,C++ : 속도가중요하지, readabilty는 괜찮다
 
+
+
+- 소스파일([링크](https://github.com/packtpublishing/clean-code-in-python))
+
+
+
+# Chapter
+
+| Chapter |          Title           | Link                |
+| ------- | :----------------------: | ------------------- |
+| Ch01    | 소개, 코드 포매팅과 도구 | [go](./정리/ch1.md) |
+|         |                          |                     |
+|         |                          |                     |
+
