@@ -177,18 +177,10 @@ type_to_ignore = "something" # type: ignore
 
 1. **자동 검사 설정**
 
-- creating a python makefile(
-
-  링크
-
-  )
-
+- creating a python makefile([링크](https://earthly.dev/blog/python-makefile/))
   - [cmake](https://pypi.org/project/cmake/)
-
 - makefile : 파일을 묶어주는 곳(compile)
-
 - 프로젝트를 싱행하기 위한 설정을 도와주는 파워풀한 도구
-
 - 포매팅 검사나 코딩 컨벤션 검사를 자동화하기 위해 사용 가능
 
 ```python
