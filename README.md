@@ -25,6 +25,10 @@ C,C++ : 속도가중요하지, readabilty는 괜찮다
 
 
 
+## 파이썬 
+
+- “2~5배 더 빠르게”··· 귀도 반 로섬, 파이썬 속도 개선한다([링크](https://www.ciokorea.com/news/193909))
+
 - 소스파일([링크](https://github.com/packtpublishing/clean-code-in-python))
 
 

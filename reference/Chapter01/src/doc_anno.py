@@ -13,6 +13,6 @@ def data_from_response(response: dict) -> dict:
     - 발생 가능한 예외:
     - HTTP status가 200이 아닌 경우 ValueError 발생
     """
-    if responce["status"] != 200:
+    if response["status"] != 200:
         raise ValueError
     return {"data": response["payload"]}
