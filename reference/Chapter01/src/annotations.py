@@ -10,7 +10,7 @@ class Point:  # pylint: disable=R0903
     def __init__(self, lat, long):
         self.lat = lat
         self.long = long
-
+    
 
 def locate(latitude: float, longitude: float) -> Point:
     """Find an object in the map by its coordinates"""

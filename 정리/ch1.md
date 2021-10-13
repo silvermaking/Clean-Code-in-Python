@@ -169,13 +169,15 @@ def data_from_response(response: dict) -> dict:
 type_to_ignore = "something" # type: ignore
 ```
 
-1. **Pylint를 사용한 코드 검사**
+2. **Pylint를 사용한 코드 검사**
+
+- 현업에서 많이 사용
 
 - 코드의 구조 검사
 - `$ pip install pylint`
 - `$ pylint`
 
-1. **자동 검사 설정**
+3. **자동 검사 설정**
 
 - creating a python makefile([링크](https://earthly.dev/blog/python-makefile/))
   - [cmake](https://pypi.org/project/cmake/)
@@ -204,7 +206,14 @@ setup:
 .PHONY: typehint test lint checklist black
 ```
 
-1. **Black**
+4. **Black** 
+
+- 대규모 프로젝트할 때 사용
 
 - [black](https://github.com/psf/black)
 - 자동으로 코드를 포매팅
+
+- black in python 
+  - [링크1](https://www.daleseo.com/python-black/#black%EC%9D%B4%EB%9E%80)
+  - [링크2](https://stackoverflow.com/questions/57289061/how-can-i-apply-black-code-formatting-on-save)
+
