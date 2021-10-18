@@ -101,15 +101,18 @@ class Point:  # pylint: disable=R0903
         self.lat = lat
         self.long = long
 
+        
 def locate(latitude: float, longitude: float) -> Point:
     """Find an object in the map by its coordinates"""
     return Point(latitude, longitude)
+
 
 class NewPoint:  # pylint: disable=R0903
     """Example to display its __annotations__ attribute."""
     lat: float
     long: float
 
+    
 print(locate.__annotations__)
 # {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': <class '__main__.Point'>}
 print(NewPoint.__annotations__)
