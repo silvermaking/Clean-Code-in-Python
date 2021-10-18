@@ -114,9 +114,19 @@ class NewPoint:  # pylint: disable=R0903
 
     
 print(locate.__annotations__)
-# {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': <class '__main__.Point'>}
+# >>> {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': <class '__main__.Point'>}
 print(NewPoint.__annotations__)
-# {'lat': <class 'float'>, 'long': <class 'float'>}
+# >>> {'lat': <class 'float'>, 'long': <class 'float'>}
+
+
+# Good example of type hinting. Instead of:
+def launch_task(delay_as_seconds):
+    pass
+
+# Use sth like:
+Seconds = float
+def launch_task(delay: Seconds):
+    pass
 ```
 
 - ```
@@ -127,9 +137,30 @@ print(NewPoint.__annotations__)
 
 - 타입 힌팅은 인터프리터와 독립된 추가 도구를 사용하여 코드 전체에 올바른 타입이 사용되었는지 확인하고 호환되지 않는 타입이 발견되었을 때 사용자에게 **힌트**를 주는 것
 
-- Mypy
+- `mypy` & `pytype`
 
-- 버그를 찾는 데 도움이 될 수 있으므로 Mypy를 설정하고 다른 정적 분석 도구와 함께 사용하는 것이 좋다.
+- 버그를 찾는 데 도움이 될 수 있으므로 `mypy`와 `pytype`을 설정하고 다른 정적 분석 도구와 함께 사용하는 것이 좋다.
+
+```python
+from typing import Tuple
+Client = Tuple[int, str]
+def process_clients(clients: list[Client]):
+    pass
+
+
+# Compact & small way to write classes and objects
+from dataclasses import dataclass
+@dataclass
+class Point:
+    lat: float
+    long: float
+    
+    
+# >>> Point.__annotations__
+# >>> {'lat': <class 'float>, 'long': <class 'float'>}
+# >>> Point(1, 2)
+# >>> Point(lat=1, long=2)
+```
 
 ### Annotation은 Docstring을 대체하는 것일까?
 
@@ -153,7 +184,7 @@ def data_from_response(response: dict) -> dict:
     - 발생 가능한 예외:
     - HTTP status가 200이 아닌 경우 ValueError 발생
     """
-    if responce["status"] != 200:
+    if response["status"] != 200:
         raise ValueError
     return {"data": response["payload"]}
 ```
@@ -169,8 +200,9 @@ def data_from_response(response: dict) -> dict:
 - 이 코드를 동료 개발자가 쉽게 이해하고 따라갈 수 있을까?
 - 업무 도메인에 대해서 말하고 있는가?
 - 팀에 새로 합류하는 사람도 쉽게 이해하고 효과적으로 작업할 수 있을까?
+- CI (Continuous Integration) 빌드에 구성되어야 함
 
-1. **Mypy를 사용한 타입 힌팅**
+1. **mypy를 사용한 타입 힌팅**
 
 - http://mypy-lang.org/
 - 정적 타입 검사 도구
@@ -178,12 +210,14 @@ def data_from_response(response: dict) -> dict:
 - 가끔 잘못 탐지하는 경우도 있다
 - `$ pip install mypy`
 - `mypy {파일명}`
+- `pytype`이라는 툴도 있음
+  - 차이점: `pytype`은 인자 type을 확인하지 않고 코드 런타임 에러를 보고
 
 ```python
 type_to_ignore = "something" # type: ignore
 ```
 
-2. **Pylint를 사용한 코드 검사**
+2. **pylint를 사용한 코드 검사**
 
 - 현업에서 많이 사용
 
@@ -191,15 +225,23 @@ type_to_ignore = "something" # type: ignore
 - `$ pip install pylint`
 - `$ pylint`
 
+- `pylint`를 `pylintrc`에서 사용하기:
+```
+[DESIGN]
+    disable=missing-function-docstring
+```
+- 모든 함수가 docstring을 가지지 않아도 되게 해줌
+
 3. **자동 검사 설정**
 
 - creating a python makefile([링크](https://earthly.dev/blog/python-makefile/))
   - [cmake](https://pypi.org/project/cmake/)
-- makefile : 파일을 묶어주는 곳(compile)
+- Makefile : 파일을 묶어주는 곳(compile)
 - 프로젝트를 싱행하기 위한 설정을 도와주는 파워풀한 도구
 - 포매팅 검사나 코딩 컨벤션 검사를 자동화하기 위해 사용 가능
+- `$ make checklist`
 
-```python
+```
 typehint:
 	mypy --ignore-missing-imports src/
 
@@ -226,8 +268,11 @@ setup:
 
 - [black](https://github.com/psf/black)
 - 자동으로 코드를 포매팅
+  - 스트링은 쌍따옴표
 
 - black in python 
   - [링크1](https://www.daleseo.com/python-black/#black%EC%9D%B4%EB%9E%80)
   - [링크2](https://stackoverflow.com/questions/57289061/how-can-i-apply-black-code-formatting-on-save)
+
+- `yapf`: 부분적 포매팅 가능
 
