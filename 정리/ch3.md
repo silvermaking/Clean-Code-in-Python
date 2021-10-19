@@ -106,7 +106,7 @@
 
 > [**주의**] 그와 동시에 이 정보는 악의적인 사용자에게도 중요 정보 유출 발생 위험
 
-1. **비어있는 except 블록 지양**
+3. **비어있는 except 블록 지양**
 
 - 너무 방어적이여서 아무것도 하지 않은 채로 조용히 지나쳐버리는 비어있는 except 블록
 - 파이썬의 안티패턴([realpython blog](https://realpython.com/the-most-diabolical-python-antipattern/))
@@ -117,7 +117,7 @@
 - except 블록에서 실제 오류 처리
 - 가장 좋은 방법은 위의 두 항목 동시 적용
 
-1. **원본 예외 포함**
+4. **원본 예외 포함**
 
 - 오류 처리시 메시지를 변경할 경우, 원래 예외를 포함하는 것이 좋음
 - `raise <e> from <original_exception>` 구문 사용
