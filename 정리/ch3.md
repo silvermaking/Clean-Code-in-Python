@@ -337,7 +337,7 @@ EAFP vs LBYL([reference](https://devblogs.microsoft.com/python/idiomatic-python-
 
 ### 7-1. 소프트웨어의 독립성(orthogonality)
 
-- 직교 : 두 요소가 독릭적
+- 직교 : 두 요소가 독립적
 - 하나의 변경이 외부 세계의 영향을 최소화해야함
   - 관심사의 분리, 응집력, 컴포넌트 격리 등
 
@@ -347,6 +347,7 @@ EAFP vs LBYL([reference](https://devblogs.microsoft.com/python/idiomatic-python-
 
 - 여러 정의(클래스, 함수, 상수 등)가 들어있는 큰 파일을 만드는 것은 지양한다.
 - 유사한 컴포넌트끼리 정리하여 구조화
-- `__init.py` 파일을 가진 새 디렉토리를 만들어서 파일 분할을 쉽게 할 수 있음
+- `__init__.py` 파일을 가진 새 디렉토리를 만들어서 파일 분할을 쉽게 할 수 있음
   - 모듈을 `import`할 때 구문을 분석하고 메모리에 로드할 객체가 줄어듬
   - 의존성이 줄었기 때문에 더 적은 모듈만 가져오면 됨
+
