@@ -331,7 +331,7 @@ EAFP vs LBYL([reference](https://devblogs.microsoft.com/python/idiomatic-python-
 
 
 
-## 7. 소프트웨어 디자인 우수 사례 결론
+## 7. 소프트웨어 디자인 우수 사례 결론ㄴ
 
 
 
