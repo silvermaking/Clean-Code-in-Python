@@ -38,6 +38,7 @@ C,C++ : 속도가중요하지, readabilty는 괜찮다
 | Chapter |            Title            | Link                     |
 | ------- | :-------------------------: | ------------------------ |
 | Ch01    |  소개, 코드 포매팅과 도구   | [content](notes/ch1.md) |
-| Ch02    | 파이썬스러운(Pythonic) 코드 | [content](notes/ch2.md) |
-| Ch03    |  좋은 코드의 일반적인 특징  | [content](notes/ch3.md) |
+| Ch02    | 파이썬스러운(Pythonic) 코드 | [content](notes/ch2.md), [practice](practice/ch2.ipynb) |
+| Ch03    |  좋은 코드의 일반적인 특징  | [content](notes/ch3.md), [practice](practice/ch3.ipynb) |
+| Ch04    |  SOLID Principle  | [content](notes/ch4.md), [polymorphism](practice/polymorphism.ipynb), <br />[practice](practice/ch4.ipynb) |
 
