@@ -23,6 +23,7 @@
 - 기술 부채 : 나쁜 결정이나 적당한 타협의 결과로 생긴 소프트웨어적 결함
   - 장기적이고 근본적인 문제를 내포
   - 잠재적인 문제
+  - 나중에 고치기 더 힘듦
 
 ### 클린 코드에서 코드 포매팅의 역할
 
@@ -39,6 +40,9 @@
 - **품질 표준을 지키기 위해** 프로젝트에서 따라야만 하는 최소한의 요구사항
 
 - [PEP-8](https://www.python.org/dev/peps/pep-0008/)
+  - 변수 선언 시 `=` 사이에 띄어쓰기를 하지만, keyword 인자 호출 시 띄어쓰기 제외
+    - 예: `my_var = 10` vs. `my_function(my_var=10)`
+  - `try/except` 블락에는 코드를 최소한으로만 적기
 
   - 검색 효율성(Grepability) : 코드에서 토큰을 grep 할 수 있는 기능
 
@@ -50,7 +54,7 @@
   ./src/test_annotations.py:11:@pytest.mark.parametrize(
   ```
 
-  - 일관성 : 가독성이 높아지고 이해하기 쉬워짐
+  - 일관성 : 가독성이 높아지고 이해하기 쉬워짐, 토큰 grep에 용이
   - 코드 품질
 
 ------
@@ -58,21 +62,28 @@
 ## Docstring & Annotation
 
 - 훌륭한 코드는 그 자체로 자명하지만 문서화 또한 잘 되어 있다.
+- 어떻게 (how)가 아니라 무엇 (what)을 하는 지 설명
 - 문서화
   - 데이터 타입이 무엇인지 설명하고 예제를 제공
   - 주석(Comment)는 가급적 피해야 한다.
 - 어노테이션
   - 파이썬은 동적으로 타입을 결정하기 때문에 함수, 메서드를 거치면 변수나 객체의 값이 무엇인지 알기 어렵다.
   - 어노테이션을 통해 이러한 정보를 명시
-  - `Mypy` 같은 도구를 사욯해 타입 힌트 등의 자동화된 검증을 실행
+  - `mypy`, `pytype` 같은 도구를 사욯해 타입 힌트 등의 자동화된 검증을 실행
+- 주석 처리된 코드는 무조건 삭제
 
 ### Docstring
 
-- 소스코드에 포함된 문서
+- 소스코드 `module`, `class`, `method`, `function`에 포함된 문서
+  - 예상된 인풋과 아웃풋을 기록
 - 코드에 **주석**을 다는 것은 **여러 가지 이유로 나쁜 습관**
   - 코드로 아이디어를 제대로 표현하지 못했음을 나타냄
   - 코드와 주석의 불일치 ( 수정했을 경우 포함)
 - Docstring은 코드의 특정 컴포넌트에 대한 문서화
+- 객체애 docstring을 선언하면 `__doc__` attribute를 통해 객체의 부분이 됨
+- `Sphinx`를 실행하면 프로젝트 문서 구조를 만들어줌
+- 수동적 관리 필요
+  - 간단하고 직관적인 함수에는 불필요
 
 ### Annotation
 
@@ -90,19 +101,32 @@ class Point:  # pylint: disable=R0903
         self.lat = lat
         self.long = long
 
+        
 def locate(latitude: float, longitude: float) -> Point:
     """Find an object in the map by its coordinates"""
     return Point(latitude, longitude)
+
 
 class NewPoint:  # pylint: disable=R0903
     """Example to display its __annotations__ attribute."""
     lat: float
     long: float
 
+    
 print(locate.__annotations__)
-# {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': <class '__main__.Point'>}
+# >>> {'latitude': <class 'float'>, 'longitude': <class 'float'>, 'return': <class '__main__.Point'>}
 print(NewPoint.__annotations__)
-# {'lat': <class 'float'>, 'long': <class 'float'>}
+# >>> {'lat': <class 'float'>, 'long': <class 'float'>}
+
+
+# Good example of type hinting. Instead of:
+def launch_task(delay_as_seconds):
+    pass
+
+# Use sth like:
+Seconds = float
+def launch_task(delay: Seconds):
+    pass
 ```
 
 - ```
@@ -113,9 +137,30 @@ print(NewPoint.__annotations__)
 
 - 타입 힌팅은 인터프리터와 독립된 추가 도구를 사용하여 코드 전체에 올바른 타입이 사용되었는지 확인하고 호환되지 않는 타입이 발견되었을 때 사용자에게 **힌트**를 주는 것
 
-- Mypy
+- `mypy` & `pytype`
 
-- 버그를 찾는 데 도움이 될 수 있으므로 Mypy를 설정하고 다른 정적 분석 도구와 함께 사용하는 것이 좋다.
+- 버그를 찾는 데 도움이 될 수 있으므로 `mypy`와 `pytype`을 설정하고 다른 정적 분석 도구와 함께 사용하는 것이 좋다.
+
+```python
+from typing import Tuple
+Client = Tuple[int, str]
+def process_clients(clients: list[Client]):
+    pass
+
+
+# Compact & small way to write classes and objects
+from dataclasses import dataclass
+@dataclass
+class Point:
+    lat: float
+    long: float
+    
+    
+# >>> Point.__annotations__
+# >>> {'lat': <class 'float>, 'long': <class 'float'>}
+# >>> Point(1, 2)
+# >>> Point(lat=1, long=2)
+```
 
 ### Annotation은 Docstring을 대체하는 것일까?
 
@@ -139,7 +184,7 @@ def data_from_response(response: dict) -> dict:
     - 발생 가능한 예외:
     - HTTP status가 200이 아닌 경우 ValueError 발생
     """
-    if responce["status"] != 200:
+    if response["status"] != 200:
         raise ValueError
     return {"data": response["payload"]}
 ```
@@ -155,8 +200,9 @@ def data_from_response(response: dict) -> dict:
 - 이 코드를 동료 개발자가 쉽게 이해하고 따라갈 수 있을까?
 - 업무 도메인에 대해서 말하고 있는가?
 - 팀에 새로 합류하는 사람도 쉽게 이해하고 효과적으로 작업할 수 있을까?
+- CI (Continuous Integration) 빌드에 구성되어야 함
 
-1. **Mypy를 사용한 타입 힌팅**
+1. **mypy를 사용한 타입 힌팅**
 
 - http://mypy-lang.org/
 - 정적 타입 검사 도구
@@ -164,12 +210,14 @@ def data_from_response(response: dict) -> dict:
 - 가끔 잘못 탐지하는 경우도 있다
 - `$ pip install mypy`
 - `mypy {파일명}`
+- `pytype`이라는 툴도 있음
+  - 차이점: `pytype`은 인자 type을 확인하지 않고 코드 런타임 에러를 보고
 
 ```python
 type_to_ignore = "something" # type: ignore
 ```
 
-2. **Pylint를 사용한 코드 검사**
+2. **pylint를 사용한 코드 검사**
 
 - 현업에서 많이 사용
 
@@ -177,15 +225,23 @@ type_to_ignore = "something" # type: ignore
 - `$ pip install pylint`
 - `$ pylint`
 
+- `pylint`를 `pylintrc`에서 사용하기:
+```
+[DESIGN]
+    disable=missing-function-docstring
+```
+- 모든 함수가 docstring을 가지지 않아도 되게 해줌
+
 3. **자동 검사 설정**
 
 - creating a python makefile([링크](https://earthly.dev/blog/python-makefile/))
   - [cmake](https://pypi.org/project/cmake/)
-- makefile : 파일을 묶어주는 곳(compile)
+- Makefile : 파일을 묶어주는 곳(compile)
 - 프로젝트를 싱행하기 위한 설정을 도와주는 파워풀한 도구
 - 포매팅 검사나 코딩 컨벤션 검사를 자동화하기 위해 사용 가능
+- `$ make checklist`
 
-```python
+```
 typehint:
 	mypy --ignore-missing-imports src/
 
@@ -212,8 +268,11 @@ setup:
 
 - [black](https://github.com/psf/black)
 - 자동으로 코드를 포매팅
+  - 스트링은 쌍따옴표
 
 - black in python 
   - [링크1](https://www.daleseo.com/python-black/#black%EC%9D%B4%EB%9E%80)
   - [링크2](https://stackoverflow.com/questions/57289061/how-can-i-apply-black-code-formatting-on-save)
+
+- `yapf`: 부분적 포매팅 가능
 
