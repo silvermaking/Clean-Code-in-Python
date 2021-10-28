@@ -8,6 +8,11 @@
 
 
 
+- SOLID 원칙은 설계를 할 때 지켜야 할 당연한 원칙들
+- 리팩토링할 때 이 원칙들에 기반하여 할 수 있음
+
+
+
 ### Reference
 
 - [SOLID Coding in Python](https://towardsdatascience.com/solid-coding-in-python-1281392a6a94)
