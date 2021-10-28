@@ -1,6 +1,8 @@
 # Ch2. 파이썬스러운(pythonic) 코드
 
+
 - EWD831 : 왜 넘버링은 0 부터 시작해야 하는가? ([링크](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html))
+
 
 - 파이썬 스러운 코드를 작성해야 하는 이유
   - 관용적인 방식으로 코드를 작성했을 때 일반적으로 더 나은 성능을 낸다
@@ -15,8 +17,6 @@
 - 파이썬에서 부작용을 유발하는 흔한 실수 피하기
 
 ------
-
-
 
 ## 1. 인덱스와 슬라이스
 
@@ -38,7 +38,6 @@
   - slice에 의해 제공된 범위는 마지막 요소는 제외해야 한다.
 
 ------
-
 
 
 ## 2. 컨텍스트 관리자(context manager)
@@ -75,7 +74,6 @@
 ------
 
 
-
 ## 3. 프로퍼티, 속성과 객체 메서드의 다른 타입들
 
 - 다른 언어는 public, private, protected 프로퍼티를 가진다.
@@ -105,6 +103,7 @@
 - 프로퍼티는 명령-쿼리 분리 원칙(command and query seperation -CC08)을 따르기 위한 좋은 방법
 
 ------
+
 
 
 
@@ -196,8 +195,3 @@
 - Cpython 과 Pypy의 차이([Pypy공식문서](https://doc.pypy.org/en/latest/cpython_differences.html#subclasses-of-built-in-types))
 
 ---
-
-
-
-
-
