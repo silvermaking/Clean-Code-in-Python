@@ -42,3 +42,5 @@ C,C++ : 속도가중요하지, readabilty는 괜찮다
 | Ch03    |  좋은 코드의 일반적인 특징  | [content](notes/ch3.md), [practice](practice/ch3.ipynb) ||
 | Ch04    |  SOLID Principle  | [content](notes/ch4.md), [polymorphism](practice/polymorphism.ipynb), <br />[practice](practice/ch4.ipynb) |[ch3,4_review](notes/review_ch3_ch4.md)|
 | Ch05    |  Decorator  | [content](notes/ch5.md) ||
+| Ch06    |  Discriptor  | [content&practice](practice/ch6.ipynb) ||
+
