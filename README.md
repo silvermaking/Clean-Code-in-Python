@@ -45,3 +45,4 @@ C,C++ : 속도가중요하지, readabilty는 괜찮다
 | Ch06    |  Discriptor  | [content&practice](practice/ch6.ipynb) ||
 | Ch07    |  Generator  | [content&practice](practice/ch7.ipynb) ||
 | Ch08    |  UnitTest and Refactoring  | [content&practice](practice/ch8.ipynb) ||
+| Ch10    |  Architecture  | [content](note/ch10.ipynb) ||
